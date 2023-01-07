@@ -1,7 +1,7 @@
 """Conta Bancaria"""
 
 class Conta():
-    def __init__(self, nome: str, saldo, senha:str) -> None:
+    def __init__(self, nome: str, saldo=0.0, senha:str = '0000') -> None:
         self.nome = nome
         self.saldo = saldo
         self.senha = senha
@@ -32,12 +32,10 @@ class Conta():
         print('Saque realizado com sucesso!')
         return self.saldo
     
-    def saldo(self, senha):
+    def mostrar_saldo(self, senha):
         if self.senha != senha:
             print('Senha errada!')
             return None
-        
-        print(f'O saldo disponível é de R${self.saldo}')
         return self.saldo
     
     def mostrar(self):
@@ -45,9 +43,5 @@ class Conta():
         print(f'Saldo: {self.saldo}')
         print(f'Senha: {self.senha}')
         
-
-mirian = Conta('Mirian', 20, '1234')
-mirian.mostrar()
-mirian.saque(30, '1234')
-
-        
+conta = Conta('Mirian', 10, 'c')
+print(conta.mostrar_saldo('c'))
