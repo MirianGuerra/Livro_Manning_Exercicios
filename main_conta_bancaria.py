@@ -1,19 +1,13 @@
 from conta_bancaria import *
+from banco import *
 
-dic_conta = {}
-proximo_numero_conta_dic = 0
+banco = Banco()
 
-conta = Conta('Mirian')
-mirian_nro_conta = proximo_numero_conta_dic
-dic_conta[mirian_nro_conta]=conta
-print(f'O número da conta da Mirian é {mirian_nro_conta}')
-proximo_numero_conta_dic +=1
+nro_conta_mirian = banco.criar_conta('Mirian', )
+print(f'O numero da conta é {nro_conta_mirian}')
 
-conta=Conta('Bruno', 200, '123')
-bruno_nro_conta = proximo_numero_conta_dic
-dic_conta[bruno_nro_conta]=conta
-print(f'O número da conta do Bruno é {bruno_nro_conta}')
-proximo_numero_conta_dic +=1
+nro_conta_bruno=banco.criar_conta('Bruno', 200, '123')
+print(f'O numero da conta é {nro_conta_bruno}')
 
 def pegando_nro_conta_e_senha():
     numero_conta = int(input('Entre com seu número de conta: '))
@@ -29,6 +23,7 @@ while True:
     print('Pressione s para saque.')
     print('Pressione m para mostrar todas as contas.')
     print('Pressione q para sair.')
+    print('Pressione f para fechar sua conta.')
     print()
 
     acao = input('Digite a letra correspondente ao que quer fazer: ')
@@ -36,50 +31,27 @@ while True:
     print(acao)
     
     if acao == 'b':
-        print(' *** SALDO *** ')
-        numero_conta, senha = pegando_nro_conta_e_senha()
-        conta =dic_conta[numero_conta]
-        saldo = conta.mostrar_saldo(senha)
-        #saldo = (dic_conta[numero_conta].saldo(senha))
-        #print(saldo)
-        if saldo is not None:
-            print(f'Seu saldo é {saldo}')
-        else:
-            print('Usuário não encontrado')
+        banco.mostrar_saldo()
             
     elif acao == 'd':
-        print(' *** DEPÓSITO *** ')
-        numero_conta, senha = pegando_nro_conta_e_senha()
-        valor = int(input('Digite o valor que deseja depositar: '))
-        dic_conta[numero_conta].deposito(valor, senha)
+        banco.depositar()
         
     elif acao == 'o':
-        print(' *** ABRIR CONTA *** ')
-        nome = input("Digite seu nome completo: ")
-        valor = input('Entre com o valor de entrada, caso não tenha aperte ENTER: ')
-        senha = input('Digite uma senha: ')
-        conta = Conta(nome, valor, senha)
-        nro_conta = proximo_numero_conta_dic
-        print(f'O numero da sua conta é: {nro_conta}')
-        proximo_numero_conta_dic += 1
-        dic_conta[nro_conta] = conta
-        dic_conta[nro_conta].mostrar()
+        banco.abrir_conta()
 
     elif acao == 's':
-        print(' *** SAQUE *** ')
-        numero_conta, senha = pegando_nro_conta_e_senha()
-        valor = int(input('Digite o valor que deseja sacar: '))
-        conta = dic_conta[numero_conta]
-        conta.saque(valor, senha)
+        banco.sacar()
         
     elif acao == 'm':
-        print(' *** MOSTRAR CONTAS *** ')
-        for nro_conta in dic_conta.keys():
-            print(f'Número da Conta {nro_conta}')
-            dic_conta[nro_conta].mostrar()
-            print('')
+        banco.mostrar_contas()
+
+    elif acao == 'f':
+        banco.fechar_conta()
 
     elif acao == 'q':
         break
+    
+    else:
+        print('Essa não é uma ação válida, tente novamente.')
        
 

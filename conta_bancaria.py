@@ -43,5 +43,3 @@ class Conta():
         print(f'Saldo: {self.saldo}')
         print(f'Senha: {self.senha}')
         
-conta = Conta('Mirian', 10, 'c')
-print(conta.mostrar_saldo('c'))
